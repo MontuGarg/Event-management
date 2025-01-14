@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express=require("express");
 const app=express();
 const cors=require("cors");
@@ -6,8 +7,9 @@ const mongoose=require("mongoose");
 app.use(express.urlencoded({extended:true}));
 app.use(express.json())
 app.use(cors());
-
-mongoose.connect("mongodb+srv://gargmontu3:Sx0AJ3jilswFAmX1@montucluster1.m1fch.mongodb.net/?retryWrites=true&w=majority&appName=MontuCluster1",{
+const port =process.env.port_server ||5000;
+const mongoCode=process.env.Mongo_Code;
+mongoose.connect(`mongodb+srv://${mongoCode}@montucluster1.m1fch.mongodb.net/?retryWrites=true&w=majority&appName=MontuCluster1`,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(()=>{
@@ -145,6 +147,6 @@ app.post("/createEvent", async (req, res) => {
     }
   });
 
-app.listen(4000,()=>{
+app.listen(port,()=>{
     console.log("Listening on 4000");
 })
